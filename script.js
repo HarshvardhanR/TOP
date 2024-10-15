@@ -54,6 +54,7 @@ function displayData() {
         // Create Status Update Button
         const statusUpdateButton = document.createElement("button");
         statusUpdateButton.innerText = "Change Status";
+        statusUpdateButton.setAttribute("data-index", i);
         statusUpdateButton.addEventListener("click", function(){
             const index = this.getAttribute("data-index"); // Get the index from data-attribute
             if (arr[index].status === "read") {
@@ -65,7 +66,7 @@ function displayData() {
         });
 
         // Set index attribute for status update button
-        statusUpdateButton.setAttribute("data-index", i);
+        
 
         // Append cells to the row
         row.appendChild(d1);
