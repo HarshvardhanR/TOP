@@ -41,22 +41,22 @@ function displayData() {
         const d4 = document.createElement("td");
         d4.innerText = arr[i].status;
 
-        // Create Remove Button
+        // Remove Button
         const removeButton = document.createElement("button");
         removeButton.innerText = "Remove";
-        removeButton.setAttribute("data-index", i); // Set the data attribute
+        removeButton.setAttribute("data-index", i); 
         removeButton.addEventListener("click", function () {
             const index = this.getAttribute("data-index");
             removeBooksFromTheLibrary(index); 
             displayData();
         });
 
-        // Create Status Update Button
+        // Status Update Button
         const statusUpdateButton = document.createElement("button");
         statusUpdateButton.innerText = "Change Status";
         statusUpdateButton.setAttribute("data-index", i);
         statusUpdateButton.addEventListener("click", function(){
-            const index = this.getAttribute("data-index"); // Get the index from data-attribute
+            const index = this.getAttribute("data-index"); 
             if (arr[index].status === "read") {
                 arr[index].status = "notRead";
             } else {
@@ -65,18 +65,14 @@ function displayData() {
             displayData();
         });
 
-        // Set index attribute for status update button
-        
-
-        // Append cells to the row
         row.appendChild(d1);
         row.appendChild(d2);
         row.appendChild(d3);
         row.appendChild(d4);
-        row.appendChild(removeButton); // Append the remove button to the row
-        row.appendChild(statusUpdateButton); // Append the status update button to the row
+        row.appendChild(removeButton); 
+        row.appendChild(statusUpdateButton);
 
-        table.appendChild(row); // Append the row to the table
+        table.appendChild(row); 
     }
 }
 
@@ -93,7 +89,7 @@ newBookButton.addEventListener("click", function () {
     form.innerHTML = `
         <label>Title: <input type="text" id="titleInput" required></label><br>
         <label>Author: <input type="text" id="authorInput" required></label><br>
-        <label>Number of Pages: <input type="number" id="pagesInput" required></label><br>
+        <label>Number of Pages: <input type="text" id="pagesInput" required></label><br>
         <label>Status: 
             <select id="statusInput" required>
                 <option value="read">Read</option>
