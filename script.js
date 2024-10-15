@@ -15,8 +15,8 @@ function addBooksToTheLibrary(book) {
     arr.push(book);
 }
 
-function removeBooksFromTheLibrary(){
-    arr.pop();
+function removeBooksFromTheLibrary(index) {
+    arr.splice(index, 1); // Remove the book at the specified index
 }
 
 const book1 = new Book("Fire and Blood", "George R Martin", 746, "read");
@@ -41,12 +41,41 @@ function displayData() {
         const d4 = document.createElement("td");
         d4.innerText = arr[i].status;
 
+        // Create Remove Button
+        const removeButton = document.createElement("button");
+        removeButton.innerText = "Remove";
+        removeButton.setAttribute("data-index", i); // Set the data attribute
+        removeButton.addEventListener("click", function () {
+            const index = this.getAttribute("data-index");
+            removeBooksFromTheLibrary(index); 
+            displayData();
+        });
+
+        // Create Status Update Button
+        const statusUpdateButton = document.createElement("button");
+        statusUpdateButton.innerText = "Change Status";
+        statusUpdateButton.addEventListener("click", function(){
+            const index = this.getAttribute("data-index"); // Get the index from data-attribute
+            if (arr[index].status === "read") {
+                arr[index].status = "notRead";
+            } else {
+                arr[index].status = "read";
+            }
+            displayData();
+        });
+
+        // Set index attribute for status update button
+        statusUpdateButton.setAttribute("data-index", i);
+
+        // Append cells to the row
         row.appendChild(d1);
         row.appendChild(d2);
         row.appendChild(d3);
         row.appendChild(d4);
+        row.appendChild(removeButton); // Append the remove button to the row
+        row.appendChild(statusUpdateButton); // Append the status update button to the row
 
-        table.appendChild(row);
+        table.appendChild(row); // Append the row to the table
     }
 }
 
@@ -88,11 +117,8 @@ newBookButton.addEventListener("click", function () {
         // Clear the form
         form.reset();
         formAccessor.innerHTML = ""; // Remove the form after submission
+        displayData(); // Refresh the table
     });
 
     formAccessor.appendChild(form); // Append the form to the container
 });
-
-const removeButton = document.querySelector("#remove");
-
-removeButton.addEventListener("click", removeBooksFromTheLibrary);
